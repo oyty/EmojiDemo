@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.oyty.entity.EmoGroupEntity;
+import com.oyty.entity.EmoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class EmoGroupView extends HorizontalScrollView implements View.OnClickLi
 
     private RadioGroup mRadioGroup;
     private OnGroupChangeListener listener;
-    private List<EmoGroupEntity> entities;
+    private List<EmoEntity> entities;
     private List<RadioButton> radioButtons;
 
     public EmoGroupView(Context context) {
@@ -54,12 +54,12 @@ public class EmoGroupView extends HorizontalScrollView implements View.OnClickLi
 
     }
 
-    public void initData(OnGroupChangeListener listener, List<EmoGroupEntity> entities) {
+    public void initData(OnGroupChangeListener listener, List<EmoEntity> entities) {
         this.listener = listener;
         this.entities = entities;
         radioButtons = new ArrayList<>();
         for(int i=0; i<entities.size(); i++) {
-            EmoGroupEntity entity = entities.get(i);
+            EmoEntity entity = entities.get(i);
             RadioButton button = new RadioButton(context);
 //            button.setButtonDrawable(new BitmapDrawable());
             button.setCompoundDrawablesWithIntrinsicBounds(0, entity.resId, 0, 0);

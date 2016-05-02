@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.oyty.entity.EmoGroupChangeEntity;
-import com.oyty.entity.EmoGroupEntity;
-import com.oyty.entity.EmoPagerEntity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.oyty.entity.EmoGroup;
+import com.oyty.entity.EmoManager;
+import com.oyty.entity.EmoPager;
 
 import static android.view.View.OnClickListener;
 
@@ -26,10 +23,6 @@ import static android.view.View.OnClickListener;
 public class EmoView extends LinearLayout implements OnClickListener, ViewPager.OnPageChangeListener, OnGroupChangeListener {
 
     private Context context;
-
-    public static final int TYPE_GRID_VIEW_NORMAL = 0x01;
-    public static final int TYPE_GRID_VIEW_CUSTOM = 0x02;
-
     private ViewPager mEmoViewPager;
     private EmoDotView mEmoDotView;
     private EmoGroupView mEmoGroupView;
@@ -37,12 +30,6 @@ public class EmoView extends LinearLayout implements OnClickListener, ViewPager.
 
     private EmoPagerAdapter adapter;
     private OnEmoClickListener listener;
-
-    private List<EmoNormalGridView> viewList;
-
-    private List<EmoGroupEntity> emoGroupEntities;
-    private List<EmoPagerEntity> emoPagerEntities;
-    private List<EmoGroupChangeEntity> emoGroupChangeEntities;
 
     public EmoView(Context context) {
         super(context);
@@ -75,39 +62,16 @@ public class EmoView extends LinearLayout implements OnClickListener, ViewPager.
         mEmoViewPager.addOnPageChangeListener(this);
     }
 
-    public void initData(OnEmoClickListener listener, List<EmoGroupEntity> entities) {
+    public void initData(OnEmoClickListener listener) {
         this.listener = listener;
-        this.emoGroupEntities = entities;
-        initEntities();
-        mEmoDotView.notifyDataChanged(0, entities.get(0).pageCount);
-        mEmoGroupView.initData(this, entities);
+        mEmoDotView.notifyDataChanged(0, EmoManager.getInstance().getEmoEntities().get(0).pageCount);
+        mEmoGroupView.initData(this, EmoManager.getInstance().getEmoEntities());
 
         adapter = new EmoPagerAdapter();
         mEmoViewPager.setAdapter(adapter);
     }
 
-    private void initEntities() {
-        emoPagerEntities = new ArrayList<>();
-        emoGroupChangeEntities = new ArrayList<>();
-        int startIndex = 0;
-        for(int i = 0; i< emoGroupEntities.size(); i++) {
-            EmoGroupEntity entity = emoGroupEntities.get(i);
-            EmoGroupChangeEntity changeEntity = new EmoGroupChangeEntity();
-            changeEntity.groupIndex = i;
-            changeEntity.groupStartIndex = startIndex;
-            emoGroupChangeEntities.add(changeEntity);
-            startIndex += entity.pageCount;
-            for(int j=0; j<entity.pageCount; j++) {
-                EmoPagerEntity pagerEntity = new EmoPagerEntity();
-                pagerEntity.typeGridView = entity.isGridType() ? TYPE_GRID_VIEW_NORMAL : TYPE_GRID_VIEW_CUSTOM;
-                pagerEntity.startResId = entity.index;
-                pagerEntity.pagerCount = entity.pageCount;
-                pagerEntity.curPagerIndex = j;
-                pagerEntity.groupIndex = i;
-                emoPagerEntities.add(pagerEntity);
-            }
-        }
-    }
+
 
     @Override
     public void onClick(View view) {
@@ -125,8 +89,8 @@ public class EmoView extends LinearLayout implements OnClickListener, ViewPager.
 
     @Override
     public void onPageSelected(int position) {
-        EmoPagerEntity entity = emoPagerEntities.get(position);
-        mEmoDotView.notifyDataChanged(entity.curPagerIndex, entity.pagerCount);
+        EmoPager entity = EmoManager.getInstance().getEmoPagerEntities().get(position);
+        mEmoDotView.notifyDataChanged(entity.pagerIndex, entity.pagerCount);
         mEmoGroupView.notifyDataChanged(entity.groupIndex);
     }
 
@@ -137,24 +101,15 @@ public class EmoView extends LinearLayout implements OnClickListener, ViewPager.
 
     @Override
     public void onGroupChanged(int position) {
-        EmoGroupChangeEntity changeEntity = emoGroupChangeEntities.get(position);
-        mEmoViewPager.setCurrentItem(changeEntity.groupStartIndex);
-    }
-
-
-    private int getTotalPagerCount() {
-        int totalCount = 0;
-        for(EmoGroupEntity entity : emoGroupEntities) {
-            totalCount += entity.pageCount;
-        }
-        return totalCount;
+        EmoGroup changeEntity = EmoManager.getInstance().getEmoGroupEntities().get(position);
+        mEmoViewPager.setCurrentItem(changeEntity.pagerStartIndex);
     }
 
     class EmoPagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
-            return getTotalPagerCount();
+            return EmoManager.getInstance().getTotalPagerCount();
         }
 
         @Override
@@ -164,15 +119,15 @@ public class EmoView extends LinearLayout implements OnClickListener, ViewPager.
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            EmoPagerEntity entity = emoPagerEntities.get(position);
-            if(entity.typeGridView == TYPE_GRID_VIEW_NORMAL) {
+            EmoPager entity = EmoManager.getInstance().getEmoPagerEntities().get(position);
+            if(entity.type == EmoManager.TYPE_GRID_VIEW_NORMAL) {
                 EmoNormalGridView normal = new EmoNormalGridView(context);
-                normal.initData(entity.startResId, entity.curPagerIndex, listener);
+                normal.initData(entity.startResId, entity.pagerIndex, listener);
                 container.addView(normal);
                 return normal;
             } else {
                 EmoCustomGridView custom = new EmoCustomGridView(context);
-                custom.initData(entity.startResId, entity.curPagerIndex, listener);
+                custom.initData(entity.startResId, entity.pagerIndex, listener);
                 container.addView(custom);
                 return custom;
             }

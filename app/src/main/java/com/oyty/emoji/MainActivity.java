@@ -3,10 +3,7 @@ package com.oyty.emoji;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.oyty.entity.EmoGroupEntity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.oyty.entity.EmoManager;
 
 public class MainActivity extends AppCompatActivity implements OnEmoClickListener {
 
@@ -18,12 +15,9 @@ public class MainActivity extends AppCompatActivity implements OnEmoClickListene
         setContentView(R.layout.activity_main);
 
         mEmoView = (EmoView) findViewById(R.id.mEmoView);
-        EmoGroupEntity gridEntity = EmoGroupEntity.getDefaultGridEntity();
-        EmoGroupEntity customEntity = EmoGroupEntity.getDefaultCustomEntity();
-        List<EmoGroupEntity> entities = new ArrayList<>();
-        entities.add(gridEntity);
-        entities.add(customEntity);
-        mEmoView.initData(this, entities);
+
+        EmoManager.getInstance().initData();
+        mEmoView.initData(this);
     }
 
     @Override

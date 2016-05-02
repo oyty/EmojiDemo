@@ -4,8 +4,9 @@ import com.oyty.emoji.R;
 
 /**
  * Created by oyty on 5/1/16.
+ * 整个表情的实体类，表示一种表情类型
  */
-public class EmoGroupEntity {
+public class EmoEntity {
     public int index;
     public int count;
     public int pageCount;
@@ -23,8 +24,8 @@ public class EmoGroupEntity {
         return type == 0;
     }
 
-    public static EmoGroupEntity getDefaultGridEntity() {
-        EmoGroupEntity entity = new EmoGroupEntity();
+    public static EmoEntity getDefaultGridEntity() {
+        EmoEntity entity = new EmoEntity();
         entity.index = R.drawable.smiley_00;
         entity.count = 100;
         entity.pageCount = 5;
@@ -33,8 +34,8 @@ public class EmoGroupEntity {
         return entity;
     }
 
-    public static EmoGroupEntity getDefaultCustomEntity() {
-        EmoGroupEntity entity = new EmoGroupEntity();
+    public static EmoEntity getDefaultCustomEntity() {
+        EmoEntity entity = new EmoEntity();
         entity.index = R.drawable.icon_000;
         entity.count = 16;
         entity.pageCount = 2;
