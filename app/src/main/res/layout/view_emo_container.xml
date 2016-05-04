@@ -11,8 +11,9 @@
 
     <com.oyty.emoji.EmoDotView
         android:id="@+id/mEmoDotView"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="20dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

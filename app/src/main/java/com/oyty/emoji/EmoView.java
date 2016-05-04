@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.oyty.R;
 import com.oyty.entity.EmoGroup;
 import com.oyty.entity.EmoManager;
 import com.oyty.entity.EmoPager;

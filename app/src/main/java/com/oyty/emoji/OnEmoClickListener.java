@@ -5,11 +5,8 @@ package com.oyty.emoji;
  */
 public interface OnEmoClickListener {
 
+    void onNormalEmoClick(int resId);
     void onCustomEmoClick();
     void onDeleteBtnClick();
-    void onEmoClick();
-
     void onEmoSendBtnClick();
-
-    void onNormalEmoClick();
 }

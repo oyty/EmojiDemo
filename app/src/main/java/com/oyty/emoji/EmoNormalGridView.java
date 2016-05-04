@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.oyty.R;
+
 /**
  * Created by oyty on 4/30/16.
  */
@@ -38,6 +40,7 @@ public class EmoNormalGridView extends GridView implements AdapterView.OnItemCli
     private void initView(Context context) {
         this.context = context;
         setNumColumns(7);
+        setPadding(10, 30, 10, 20);
         setOnItemClickListener(this);
         adapter = new EmoAdapter();
         setAdapter(adapter);
@@ -52,7 +55,7 @@ public class EmoNormalGridView extends GridView implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         if(position != 20) {
-            listener.onNormalEmoClick();
+            listener.onNormalEmoClick(startResId + position);
         } else {
             listener.onDeleteBtnClick();
         }
@@ -78,10 +81,11 @@ public class EmoNormalGridView extends GridView implements AdapterView.OnItemCli
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView image = new ImageView(context);
+            image.setPadding(0, 15, 0, 15);
             if(position != 20) {
-                image.setBackgroundResource(startResId + position);
+                image.setImageResource(startResId + position);
             } else {
-                image.setBackgroundResource(R.drawable.del_btn_nor);
+                image.setImageResource(R.drawable.del_btn_nor);
             }
             return image;
         }

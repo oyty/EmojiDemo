@@ -41,6 +41,7 @@ public class EmoDotView extends View {
         density = getResources().getDisplayMetrics().density;
         radius = 2 * density;
         padding = 10 * density;
+        setPadding(10, 10, 10, 10);
         paint = new Paint();
     }
 
@@ -56,11 +57,11 @@ public class EmoDotView extends View {
         super.onDraw(canvas);
         for(int i=0; i<count; i++) {
             if(position == i) {
-                paint.setColor(Color.RED);
+                paint.setColor(Color.WHITE);
             } else {
                 paint.setColor(Color.GRAY);
             }
-            canvas.drawCircle(mStartX + i * padding + i * 2 * radius, 0, radius, paint);
+            canvas.drawCircle(mStartX + i * padding + i * 2 * radius, radius, radius, paint);
         }
     }
 }

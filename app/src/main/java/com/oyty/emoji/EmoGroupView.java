@@ -1,6 +1,7 @@
 package com.oyty.emoji;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -61,7 +62,7 @@ public class EmoGroupView extends HorizontalScrollView implements View.OnClickLi
         for(int i=0; i<entities.size(); i++) {
             EmoEntity entity = entities.get(i);
             RadioButton button = new RadioButton(context);
-//            button.setButtonDrawable(new BitmapDrawable());
+            button.setButtonDrawable(new BitmapDrawable());
             button.setCompoundDrawablesWithIntrinsicBounds(0, entity.resId, 0, 0);
             if(i == 0) {
                 button.setChecked(true);

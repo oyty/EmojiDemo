@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/mSendRightLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/mSwitchInputAction"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/chatting_setmode_biaoqing_btn_normal" />
+
+                <Button
+                    android:id="@+id/mSendAction"
+                    android:layout_width="60dp"
+                    android:layout_height="38dp"
+                    android:text="发送" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/mSendValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/mSendRightLayout"
+                android:layout_toLeftOf="@+id/mSendRightLayout"/>
+
+        </RelativeLayout>
+
+        <com.oyty.emoji.EmoView
+            android:id="@+id/mEmoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

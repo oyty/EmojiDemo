@@ -3,6 +3,7 @@ package com.oyty.emoji;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.oyty.R;
 import com.oyty.entity.EmoManager;
 
 public class MainActivity extends AppCompatActivity implements OnEmoClickListener {
@@ -31,17 +32,12 @@ public class MainActivity extends AppCompatActivity implements OnEmoClickListene
     }
 
     @Override
-    public void onEmoClick() {
-
-    }
-
-    @Override
     public void onEmoSendBtnClick() {
 
     }
 
     @Override
-    public void onNormalEmoClick() {
+    public void onNormalEmoClick(int resId) {
 
     }
 }

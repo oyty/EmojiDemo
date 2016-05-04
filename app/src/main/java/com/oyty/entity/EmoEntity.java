@@ -1,6 +1,7 @@
 package com.oyty.entity;
 
-import com.oyty.emoji.R;
+
+import com.oyty.R;
 
 /**
  * Created by oyty on 5/1/16.

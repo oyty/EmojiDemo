@@ -71,7 +71,7 @@ public class EmoCustomGridView extends GridView implements AdapterView.OnItemCli
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
             ImageView image = new ImageView(context);
-            image.setBackgroundResource(position + startResId);
+            image.setImageResource(position + startResId);
             return image;
         }
     }
